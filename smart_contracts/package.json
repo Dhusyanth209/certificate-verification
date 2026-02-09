@@ -1,0 +1,16 @@
+{
+  "name": "smart_contracts",
+  "version": "1.0.0",
+  "description": "Certificate Verification Smart Contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^2.22.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+  }
+}
