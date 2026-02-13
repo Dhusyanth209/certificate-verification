@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/certifica
 
 // Routes
 app.use('/api/certificates', require('./routes/certificates'));
+app.use('/api/auth', require('./routes/auth'));
 
 app.get('/', (req, res) => {
     res.send('Certificate Verification API Running');

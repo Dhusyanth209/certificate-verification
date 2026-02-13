@@ -34,7 +34,7 @@ const Admin = () => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg border border-red-100 relative overflow-hidden"
+                className="bg-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-lg border border-red-100 relative overflow-hidden"
             >
                 <div className="absolute top-0 right-0 p-4 opacity-5">
                     <ShieldAlert className="w-32 h-32 text-red-600" />

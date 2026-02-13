@@ -13,10 +13,10 @@ const Verify = () => {
                 className="text-center mb-8"
             >
                 <div className="bg-orange-100 p-4 rounded-full inline-block mb-4">
-                    <Shield className="w-10 h-10 text-orange-600" />
+                    <Shield className="w-8 h-8 md:w-10 md:h-10 text-orange-600" />
                 </div>
-                <h1 className="text-4xl font-extrabold text-gray-900">Verify Authenticity</h1>
-                <p className="text-gray-600 mt-2 max-w-md mx-auto">Upload the document and enter the student ID to instantly verify against the blockchain.</p>
+                <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">Verify Authenticity</h1>
+                <p className="text-sm md:text-base text-gray-600 mt-2 max-w-md mx-auto">Upload the document and enter the student ID to instantly verify against the blockchain.</p>
             </motion.div>
             <VerificationForm />
         </div>
@@ -83,7 +83,7 @@ const VerificationForm = () => {
 
                 <div
                     {...getRootProps()}
-                    className={`border-3 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-300 ${isDragActive ? 'border-orange-500 bg-orange-50 scale-105' : 'border-gray-300 hover:border-gray-400 hover:bg-orange-50'}`}
+                    className={`border-3 border-dashed rounded-xl p-6 md:p-10 text-center cursor-pointer transition-all duration-300 ${isDragActive ? 'border-orange-500 bg-orange-50 scale-105' : 'border-gray-300 hover:border-gray-400 hover:bg-orange-50'}`}
                 >
                     <input {...getInputProps()} />
                     {file ? (
@@ -124,21 +124,27 @@ const VerificationForm = () => {
                         className="mt-8 overflow-hidden"
                     >
                         <div className={`p-6 rounded-2xl border-l-4 ${result.status === 'Valid' ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
-                            <div className="flex items-center mb-4">
+                            <div className="flex items-start mb-4">
                                 {result.status === 'Valid' ?
-                                    <CheckCircle className="w-8 h-8 text-green-600 mr-3" /> :
-                                    <XCircle className="w-8 h-8 text-red-600 mr-3" />
+                                    <CheckCircle className="w-8 h-8 text-green-600 mr-3 flex-shrink-0" /> :
+                                    <XCircle className="w-8 h-8 text-red-600 mr-3 flex-shrink-0" />
                                 }
                                 <div>
                                     <h3 className={`text-xl font-bold ${result.status === 'Valid' ? 'text-green-800' : 'text-red-800'}`}>
                                         Certificate is {result.status}
                                     </h3>
-                                    <p className="text-sm text-gray-600">{result.msg}</p>
+                                    <p className="text-sm text-gray-600 mt-1">{result.msg}</p>
+
+                                    {result.status !== 'Valid' && (
+                                        <p className="text-xs text-gray-500 mt-2">
+                                            Double-check the <strong>Student ID</strong> and ensure you uploaded the correct <strong>original PDF</strong>.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
 
                             {result.certificate && (
-                                <div className="mt-4 bg-white/60 p-4 rounded-lg text-sm space-y-2">
+                                <div className="mt-4 bg-white/60 p-4 rounded-lg text-sm space-y-2 border border-gray-100">
                                     <div className="flex justify-between border-b pb-2">
                                         <span className="text-gray-500">Student Name</span>
                                         <span className="font-medium">{result.certificate.studentName}</span>

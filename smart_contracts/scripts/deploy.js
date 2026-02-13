@@ -6,9 +6,22 @@ async function main() {
 
     await certificateRegistry.waitForDeployment();
 
-    console.log("CertificateRegistry deployed to:", await certificateRegistry.getAddress());
+    const address = await certificateRegistry.getAddress();
+    console.log("CertificateRegistry deployed to:", address);
 
-    // Optional: Save address to frontend/backend config
+    // Save address to server config
+    const fs = require("fs");
+    const path = require("path");
+    const configDir = path.join(__dirname, "../../server/config");
+
+    if (!fs.existsSync(configDir)) {
+        fs.mkdirSync(configDir, { recursive: true });
+    }
+
+    fs.writeFileSync(
+        path.join(configDir, "contract-address.json"),
+        JSON.stringify({ address }, null, 2)
+    );
 }
 
 main().catch((error) => {

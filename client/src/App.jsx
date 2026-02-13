@@ -6,6 +6,7 @@ import Admin from './pages/Admin';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -26,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route
                 path="/issue"
                 element={

@@ -48,17 +48,21 @@ const Navbar = () => {
                                     <div className="bg-yellow-100 p-1.5 rounded-full mr-2">
                                         <User className="w-4 h-4 text-yellow-700" />
                                     </div>
-                                    {user.name}
+                                    <span className="hidden lg:inline">{user.username}</span>
                                 </div>
-                                <button onClick={handleLogout} className="flex items-center text-gray-500 hover:text-red-600 transition-colors">
+                                <button onClick={handleLogout} className="flex items-center text-gray-500 hover:text-red-600 transition-colors" title="Logout">
                                     <LogOut className="w-5 h-5" />
                                 </button>
                             </div>
                         ) : (
-                            <Link to="/login" className="flex items-center px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition-colors font-medium shadow-sm hover:shadow-md">
-                                <LogIn className="w-4 h-4 mr-2" />
-                                Login
-                            </Link>
+                            <div className="flex items-center space-x-3">
+                                <Link to="/login" className="px-4 py-2 text-gray-600 hover:text-yellow-600 font-medium transition-colors">
+                                    Login
+                                </Link>
+                                <Link to="/signup" className="flex items-center px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white rounded-lg transition-all font-medium shadow-md hover:shadow-lg">
+                                    Get Started
+                                </Link>
+                            </div>
                         )}
                     </div>
 
@@ -93,9 +97,12 @@ const Navbar = () => {
                             <Link to="/verify" onClick={() => setIsOpen(false)} className={`block px-3 py-2 rounded-md ${isActive('/verify')}`}>Verify</Link>
 
                             {!user ? (
-                                <Link to="/login" onClick={() => setIsOpen(false)} className={`block px-3 py-2 rounded-md text-yellow-600 font-medium`}>Login</Link>
+                                <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
+                                    <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-3 py-2 rounded-md text-gray-600 hover:bg-gray-50">Login</Link>
+                                    <Link to="/signup" onClick={() => setIsOpen(false)} className="block w-full text-center px-3 py-2 rounded-md bg-yellow-500 text-white font-medium">Get Started</Link>
+                                </div>
                             ) : (
-                                <button onClick={handleLogout} className="w-full text-left block px-3 py-2 rounded-md text-red-600 font-medium">Logout</button>
+                                <button onClick={handleLogout} className="w-full text-left block px-3 py-2 rounded-md text-red-600 font-medium hover:bg-red-50 mt-2">Logout</button>
                             )}
                         </div>
                     </motion.div>

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+.env
+.DS_Store
+coverage/
+smart_contracts/artifacts/
+smart_contracts/cache/
+smart_contracts/typechain-types/
+server/uploads/
+server/config/contract-address.json
+client/dist/
+client/.vite/

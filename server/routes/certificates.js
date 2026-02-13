@@ -102,7 +102,12 @@ router.post('/verify', upload.single('certificate'), async (req, res) => {
         // Here we query DB as a proxy for now, but usually we return the hash so frontend can call smart contract.
 
         // Check Blockchain Verification
-        const onChainData = await verifyCertificateOnChain(certificateHash);
+        let onChainData = null;
+        try {
+            onChainData = await verifyCertificateOnChain(certificateHash);
+        } catch (bcError) {
+            console.warn("Blockchain verification failed, falling back to local DB.", bcError.message);
+        }
 
         // Check DB (as fallback or additional data source)
         const cert = await Certificate.findOne({ certificateHash });
@@ -121,6 +126,11 @@ router.post('/verify', upload.single('certificate'), async (req, res) => {
                 },
                 source: 'Blockchain'
             });
+        }
+
+        // Detailed Debugging for development
+        if (!onChainData && !cert) {
+            console.log(`Verification Failed. Hash: ${certificateHash}, ID: ${studentId}`);
         }
 
         // Fallback to DB if Blockchain fails (Mock mode will return null)

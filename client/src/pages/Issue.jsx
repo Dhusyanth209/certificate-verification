@@ -130,9 +130,9 @@ const Issue = () => {
                 </div>
 
                 {/* Right Side: Result / Info */}
-                <div className="bg-gradient-to-br from-yellow-500 to-orange-600 p-8 md:w-2/5 text-white flex flex-col justify-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-12 opacity-10">
-                        <School className="w-64 h-64" />
+                <div className="bg-gradient-to-br from-yellow-500 to-orange-600 p-6 md:p-8 md:w-2/5 text-white flex flex-col justify-center relative overflow-hidden min-h-[300px] md:min-h-auto">
+                    <div className="absolute top-0 right-0 p-8 md:p-12 opacity-10">
+                        <School className="w-48 h-48 md:w-64 md:h-64" />
                     </div>
 
                     {result ? (

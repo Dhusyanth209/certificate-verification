@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { Shield, Lock, User, AlertCircle, ArrowRight } from 'lucide-react';
@@ -8,20 +8,25 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || "/issue";
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
-        if (login(username, password)) {
+        const res = await login(username, password);
+        setLoading(false);
+
+        if (res.success) {
             navigate(from, { replace: true });
         } else {
-            setError('Invalid credentials. Try "issuer" / "password"');
+            setError(res.msg);
         }
     };
 
@@ -81,18 +86,22 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-yellow-500/30 flex justify-center items-center group"
+                            disabled={loading}
+                            className={`w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg hover:shadow-yellow-500/30 flex justify-center items-center group ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                            Sign In <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            {loading ? 'Signing In...' : (
+                                <>Sign In <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
+                            )}
                         </button>
                     </form>
 
-                    <div className="mt-8 text-center bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <p className="text-sm text-gray-500 mb-2">Demo Credentials:</p>
-                        <div className="flex justify-center space-x-4 text-xs font-mono text-gray-600">
-                            <span className="bg-white px-2 py-1 rounded border">issuer / password</span>
-                            <span className="bg-white px-2 py-1 rounded border">admin / password</span>
-                        </div>
+                    <div className="mt-6 text-center">
+                        <p className="text-gray-500 text-sm">
+                            Don't have an account?{' '}
+                            <Link to="/signup" className="text-yellow-600 font-semibold hover:underline">
+                                Create Account
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </motion.div>
